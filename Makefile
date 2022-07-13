@@ -6,15 +6,19 @@
 #    By: jecolmou <jecolmou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/13 15:59:19 by jecolmou          #+#    #+#              #
-#    Updated: 2022/07/13 16:00:27 by jecolmou         ###   ########.fr        #
+#    Updated: 2022/07/13 18:09:58 by jecolmou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME					=	philosopher
 
-SRC					=
+SRC					=	philosopher.c \
+						srcs/parsing.c \
+						utils/ft_bzero.c \
+						utils/ft_putstr_fd.c\
+						utils/ft_strlen.c \
 
-NAME = so_long
+NAME = philosopher
 
 
 CC = clang
