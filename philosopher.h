@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jecolmou <jecolmou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jeannecolmou <jeannecolmou@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 16:39:51 by jecolmou          #+#    #+#             */
-/*   Updated: 2022/07/13 18:10:37 by jecolmou         ###   ########.fr       */
+/*   Updated: 2022/07/18 15:27:07 by jeannecolmo      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ typedef struct s_data		t_data;
 
 struct s_data
 {
+	int num_philo;
+
 	int	phil;
 	int	death;
 	int	eat;
@@ -32,15 +34,15 @@ struct s_data
 
 //////////PARSING//////////
 int	ft_check_args(int argc, char **argv);
-int	ft_check_digit(char	**argv, int i);
-int	ft_parse(int argc, char **argv, int i);
+int	ft_check_digit(int argc, char	**argv, int i);
+int	ft_parse(int argc, char **argv, int i, t_data *data);
 
 //////////SRCS//////////
-int	ft_check_digit(char	**argv, int i);
 
 //////////UTILS//////////
 int		ft_strlen(char *str);
 void	ft_bzero(void *s, size_t n);
 void	ft_putstr_fd(char *s, int fd);
+int		ft_atoi(char *str);
 
 #endif
