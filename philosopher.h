@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jecolmou <jecolmou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jeannecolmou <jeannecolmou@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 16:39:51 by jecolmou          #+#    #+#             */
-/*   Updated: 2022/07/19 16:00:31 by jecolmou         ###   ########.fr       */
+/*   Updated: 2022/07/20 16:46:07 by jeannecolmo      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,24 @@
 # include <stdlib.h>
 #include <unistd.h>
 #include <limits.h>
+#include <inttypes.h>
+#include <math.h>
+#include <stdio.h>
+#include <time.h>
+#include <sys/time.h>
 
 //////////STRUCTURE/////////
+typedef struct s_philo		t_philo;
+
+struct s_philo
+{
+	int	index;
+	int left_chpstck;
+	int right_chpstck;
+	int last_meal;
+};
+
+
 typedef struct s_data		t_data;
 
 struct s_data
@@ -27,10 +43,13 @@ struct s_data
 	int num_philo;
 	int num_chopstick;
 
+	t_philo *rousseau;
+	int	chopsticks;
+
 	int	phil;
-	int	death;
-	int	eat;
-	int	sleep;
+	int	tdeath;
+	int	teat;
+	int	tsleep;
 	int	think;
 };
 
