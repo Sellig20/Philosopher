@@ -6,7 +6,7 @@
 /*   By: jeannecolmou <jeannecolmou@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 16:39:51 by jecolmou          #+#    #+#             */
-/*   Updated: 2022/07/20 16:46:07 by jeannecolmo      ###   ########.fr       */
+/*   Updated: 2022/07/26 11:44:13 by jeannecolmo      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@
 #include <stdio.h>
 #include <time.h>
 #include <sys/time.h>
+#include <pthread.h>
+
+#define EXIT_OK 0
+#define EXIT_ERROR 1
 
 //////////STRUCTURE/////////
 typedef struct s_philo		t_philo;
@@ -33,6 +37,10 @@ struct s_philo
 	int left_chpstck;
 	int right_chpstck;
 	int last_meal;
+	int	meal_nb;
+	int	eat;
+	int	what;
+	t_data *data;
 };
 
 
@@ -50,7 +58,12 @@ struct s_data
 	int	tdeath;
 	int	teat;
 	int	tsleep;
+	int	nb_meal;
 	int	think;
+
+	pthread_mutex_t write_mutex;
+	pthread_mutex_t *chop_mutex;
+	pthread_mutex_t die_mutex;
 };
 
 //////////PARSING//////////
@@ -59,6 +72,9 @@ int	ft_check_digit(char	**argv);
 int	ft_parse(int argc, char **argv, int i, t_data *data);
 
 //////////SRCS//////////
+int	ft_routine(t_data *data);
+int	ft_init_mutex(t_data *data);
+int	ft_init_philo(t_data *data);
 
 //////////UTILS//////////
 int		ft_strlen(char *str);

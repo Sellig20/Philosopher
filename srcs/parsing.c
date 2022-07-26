@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jecolmou <jecolmou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jeannecolmou <jeannecolmou@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 16:22:11 by jecolmou          #+#    #+#             */
-/*   Updated: 2022/07/19 16:10:59 by jecolmou         ###   ########.fr       */
+/*   Updated: 2022/07/23 02:10:24 by jeannecolmo      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_check_args(int argc, char **argv)
 	int	i;
 
 	i = 0;
-	if (argc != 5)
+	if (argc != 6)
 		return (ft_putstr_fd("Error : number of argument\n", 2), 0);
 	if (ft_strlen(argv[i]) == 0)
 		return (ft_putstr_fd("Error : empty argument\n", 2), 0);
@@ -67,7 +67,7 @@ int	ft_get_num_philo(char **argv, t_data *data)
 }
 
 int	ft_parse(int argc, char **argv, int i, t_data *data)
-{
+{ 
 	i = 1;
 	while (i < argc)
 	{
