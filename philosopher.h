@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeannecolmou <jeannecolmou@student.42.f    +#+  +:+       +#+        */
+/*   By: jecolmou <jecolmou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 16:39:51 by jecolmou          #+#    #+#             */
-/*   Updated: 2022/07/26 11:44:13 by jeannecolmo      ###   ########.fr       */
+/*   Updated: 2022/07/26 16:34:09 by jecolmou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@
 #define EXIT_ERROR 1
 
 //////////STRUCTURE/////////
+
 typedef struct s_philo		t_philo;
+
+typedef struct s_data		t_data;
 
 struct s_philo
 {
@@ -40,11 +43,8 @@ struct s_philo
 	int	meal_nb;
 	int	eat;
 	int	what;
-	t_data *data;
+	t_data	*data;
 };
-
-
-typedef struct s_data		t_data;
 
 struct s_data
 {
@@ -72,9 +72,13 @@ int	ft_check_digit(char	**argv);
 int	ft_parse(int argc, char **argv, int i, t_data *data);
 
 //////////SRCS//////////
-int	ft_routine(t_data *data);
 int	ft_init_mutex(t_data *data);
 int	ft_init_philo(t_data *data);
+int	ft_settle_variables(char **argv, t_data *data);
+void	*ft_habit(void *socrate);
+int	ft_routine(t_data *data);
+int	ft_is_dead(t_philo *platon);
+int	ft_take_forks(t_philo *arendt);
 
 //////////UTILS//////////
 int		ft_strlen(char *str);
@@ -82,5 +86,6 @@ void	ft_bzero(void *s, size_t n);
 void	ft_putstr_fd(char *s, int fd);
 int		ft_atoi(const char *str);
 long long	ft_atol(char *str);
+long ft_get_time(void);
 
 #endif

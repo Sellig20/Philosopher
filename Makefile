@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jeannecolmou <jeannecolmou@student.42.f    +#+  +:+       +#+         #
+#    By: jecolmou <jecolmou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/13 15:59:19 by jecolmou          #+#    #+#              #
-#    Updated: 2022/07/18 14:08:20 by jeannecolmo      ###   ########.fr        #
+#    Updated: 2022/07/26 16:29:43 by jecolmou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,14 @@ NAME					=	philosopher
 
 SRC					=	philosopher.c \
 						srcs/parsing.c \
+						srcs/initialisation.c \
+						srcs/inside_routine.c \
+						srcs/routine.c \
 						utils/ft_bzero.c \
 						utils/ft_putstr_fd.c\
 						utils/ft_strlen.c \
-						utils/ft_atoi.c
+						utils/ft_atoi.c \
+						utils/ft_get_time.c \
 
 NAME = philosopher
 

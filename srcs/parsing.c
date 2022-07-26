@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeannecolmou <jeannecolmou@student.42.f    +#+  +:+       +#+        */
+/*   By: jecolmou <jecolmou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 16:22:11 by jecolmou          #+#    #+#             */
-/*   Updated: 2022/07/23 02:10:24 by jeannecolmo      ###   ########.fr       */
+/*   Updated: 2022/07/26 16:10:04 by jecolmou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,9 @@ int	ft_get_num_philo(char **argv, t_data *data)
 	while (argv[i])
 	{
 		if (ft_atoi(argv[1]) == 1)
-			return (ft_putstr_fd("1 philo = death\n", 2), 0);
+			return (ft_putstr_fd("Error : only one philosopher\n", 2), 0);
+		if (ft_atoi(argv[1]) == 0)
+			return (ft_putstr_fd("Error : no philosophers\n", 2), 0);
 		else if (ft_strlen(argv[i]) == 0)
 			return (ft_putstr_fd("Error : empty args\n", 2), 0);
 		else if (ft_atol(argv[i]) > INT_MAX)
@@ -67,7 +69,7 @@ int	ft_get_num_philo(char **argv, t_data *data)
 }
 
 int	ft_parse(int argc, char **argv, int i, t_data *data)
-{ 
+{
 	i = 1;
 	while (i < argc)
 	{
