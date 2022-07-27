@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jecolmou <jecolmou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jeannecolmou <jeannecolmou@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 16:39:51 by jecolmou          #+#    #+#             */
-/*   Updated: 2022/07/26 16:34:09 by jecolmou         ###   ########.fr       */
+/*   Updated: 2022/07/27 14:24:13 by jeannecolmo      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	ft_settle_variables(char **argv, t_data *data);
 void	*ft_habit(void *socrate);
 int	ft_routine(t_data *data);
 int	ft_is_dead(t_philo *platon);
-int	ft_take_forks(t_philo *arendt);
+int	ft_take_chopsticks(t_philo *arendt);
 
 //////////UTILS//////////
 int		ft_strlen(char *str);

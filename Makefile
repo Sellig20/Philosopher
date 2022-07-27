@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jecolmou <jecolmou@student.42.fr>          +#+  +:+       +#+         #
+#    By: jeannecolmou <jeannecolmou@student.42.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/13 15:59:19 by jecolmou          #+#    #+#              #
-#    Updated: 2022/07/26 16:29:43 by jecolmou         ###   ########.fr        #
+#    Updated: 2022/07/27 16:46:50 by jeannecolmo      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialisation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jecolmou <jecolmou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jeannecolmou <jeannecolmou@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:22:28 by jecolmou          #+#    #+#             */
-/*   Updated: 2022/07/26 16:25:14 by jecolmou         ###   ########.fr       */
+/*   Updated: 2022/07/27 16:46:52 by jeannecolmo      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	ft_settle_variables(char **argv, t_data *data)
 		data->nb_meal = ft_atoi(argv[5]);
 	else
 		return (ft_putstr_fd("Error : wrong argument\n", 2), 0);
+	data->think = data->tdeath - (data->teat + data->tsleep);
 	return (1);
 }
 

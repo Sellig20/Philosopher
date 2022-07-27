@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jecolmou <jecolmou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jeannecolmou <jeannecolmou@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 18:09:15 by jecolmou          #+#    #+#             */
-/*   Updated: 2022/07/26 16:38:03 by jecolmou         ###   ########.fr       */
+/*   Updated: 2022/07/27 16:46:54 by jeannecolmo      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int main(int argc, char **argv)
 	printf("time death = %d\n", data.tdeath);
 	printf("time eat = %d\n", data.teat);
 	printf("time sleep = %d\n", data.tsleep);
+	printf("time think = %d\n", data.think);
 	printf("num meal = %d\n", data.nb_meal);
 	printf("-------------------------\n");
 	ft_init_philo(&data);
