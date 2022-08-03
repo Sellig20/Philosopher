@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jeannecolmou <jeannecolmou@student.42.f    +#+  +:+       +#+         #
+#    By: jecolmou <jecolmou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/13 15:59:19 by jecolmou          #+#    #+#              #
-#    Updated: 2022/07/27 16:46:50 by jeannecolmo      ###   ########.fr        #
+#    Updated: 2022/08/03 16:26:17 by jecolmou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,9 +28,9 @@ NAME = philosopher
 
 CC = clang
 
-LINK = clang
+LINK = clang -pthread
 
-CFLAGS = -Wall -Wextra -Werror -Imlx -I. -c
+CFLAGS = -Wall -Wextra -Werror -I. -c
 
 OBJ = $(SRC:.c=.o)
 

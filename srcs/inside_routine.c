@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inside_routine.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeannecolmou <jeannecolmou@student.42.f    +#+  +:+       +#+        */
+/*   By: jecolmou <jecolmou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:24:20 by jecolmou          #+#    #+#             */
-/*   Updated: 2022/07/27 16:46:53 by jeannecolmo      ###   ########.fr       */
+/*   Updated: 2022/08/03 17:06:47 by jecolmou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	ft_eat(t_philo *aristote)
 {
 	aristote->eat++;
 	ft_putstr_fd("philo is eating\n", 1);
+	return (EXIT_OK);
 }
 
 int	ft_take_chopsticks(t_philo *arendt)
@@ -37,6 +38,7 @@ int	ft_take_chopsticks(t_philo *arendt)
 	int	chopstick;
 
 	i = 0;
+	printf("coucou\n");
 	while (i < 2)
 	{
 		if (ft_is_dead(arendt))
@@ -46,7 +48,13 @@ int	ft_take_chopsticks(t_philo *arendt)
 		else
 			chopstick = arendt->right_chpstck;
 		pthread_mutex_lock(&arendt->data->chop_mutex[chopstick]);
+		printf(" temps = %ld", ft_get_time());
 		ft_putstr_fd("taking chopstick !\n", 1);
 	}
 	return (EXIT_OK);
 }
+
+// int ft_chopstick_back(t_philo *nietzsche)
+// {
+
+// }

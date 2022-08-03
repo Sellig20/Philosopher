@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeannecolmou <jeannecolmou@student.42.f    +#+  +:+       +#+        */
+/*   By: jecolmou <jecolmou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 18:09:15 by jecolmou          #+#    #+#             */
-/*   Updated: 2022/07/27 16:46:54 by jeannecolmo      ###   ########.fr       */
+/*   Updated: 2022/08/03 17:24:00 by jecolmou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@ int main(int argc, char **argv)
 
 	if (ft_init_mutex(&data) == 0)
 		return (ft_putstr_fd("Error de init mutex\n", 2), 1);
+
+	if (ft_routine(&data) == 0)
+		ft_putstr_fd("euh piti pb ici\n", 1);
 
 
 	printf("num philo = %d\n", data.num_philo);
