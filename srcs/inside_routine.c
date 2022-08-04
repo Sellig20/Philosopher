@@ -6,7 +6,7 @@
 /*   By: jecolmou <jecolmou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:24:20 by jecolmou          #+#    #+#             */
-/*   Updated: 2022/08/03 17:06:47 by jecolmou         ###   ########.fr       */
+/*   Updated: 2022/08/04 22:27:10 by jecolmou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_is_dead(t_philo *platon)
 int	ft_eat(t_philo *aristote)
 {
 	aristote->eat++;
-	ft_putstr_fd("philo is eating\n", 1);
+	printf("philo is eating\n");
 	return (EXIT_OK);
 }
 
@@ -36,20 +36,22 @@ int	ft_take_chopsticks(t_philo *arendt)
 {
 	int	i;
 	int	chopstick;
-
+	printf("JE SUIS DANS TAKE CHOPSTICK\n");
 	i = 0;
-	printf("coucou\n");
 	while (i < 2)
 	{
-		if (ft_is_dead(arendt))
+		printf("JE SUIS DANS WHILE DE TAKE CHOP\n");
+		if (ft_is_dead(arendt) == 0)
 			return (EXIT_ERROR);
 		if (i == 0)
 			chopstick = arendt->left_chpstck;
 		else
 			chopstick = arendt->right_chpstck;
 		pthread_mutex_lock(&arendt->data->chop_mutex[chopstick]);
-		printf(" temps = %ld", ft_get_time());
-		ft_putstr_fd("taking chopstick !\n", 1);
+		//printf(" temps = %ld", ft_get_time());
+		printf("taking chopstick !\n");
+		pthread_mutex_unlock(&arendt->data->chop_mutex[chopstick]);
+		i++;
 	}
 	return (EXIT_OK);
 }

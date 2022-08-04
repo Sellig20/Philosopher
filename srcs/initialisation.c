@@ -6,7 +6,7 @@
 /*   By: jecolmou <jecolmou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:22:28 by jecolmou          #+#    #+#             */
-/*   Updated: 2022/08/03 16:49:32 by jecolmou         ###   ########.fr       */
+/*   Updated: 2022/08/04 18:35:33 by jecolmou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,6 @@ int	ft_init_philo(t_data *data)
 		data->rousseau->right_chpstck = (i + 1) % data->num_philo;
 		data->rousseau->last_meal = 0;
 		data->rousseau->meal_nb = 0;
-		printf("philo numero %d\n", data->rousseau->index);
-		printf("left chop = %d\n", data->rousseau->left_chpstck);
-		printf("right chop = %d\n", data->rousseau->right_chpstck);
-		printf("last meal = %d\n", data->rousseau->last_meal);
-		printf("----------------------------------\n");
 		i++;
 	}
 	return (EXIT_OK);

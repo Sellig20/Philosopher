@@ -6,7 +6,7 @@
 /*   By: jecolmou <jecolmou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 18:09:15 by jecolmou          #+#    #+#             */
-/*   Updated: 2022/08/03 17:24:00 by jecolmou         ###   ########.fr       */
+/*   Updated: 2022/08/04 21:11:33 by jecolmou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,21 +50,9 @@ int main(int argc, char **argv)
 
 	if (ft_init_mutex(&data) == 0)
 		return (ft_putstr_fd("Error de init mutex\n", 2), 1);
-
 	if (ft_routine(&data) == 0)
 		ft_putstr_fd("euh piti pb ici\n", 1);
 
-
-	printf("num philo = %d\n", data.num_philo);
-	printf("num chops = %d\n", data.num_chopstick);
-	printf("time death = %d\n", data.tdeath);
-	printf("time eat = %d\n", data.teat);
-	printf("time sleep = %d\n", data.tsleep);
-	printf("time think = %d\n", data.think);
-	printf("num meal = %d\n", data.nb_meal);
-	printf("-------------------------\n");
 	ft_init_philo(&data);
-
 	return (0);
 }
-
