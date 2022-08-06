@@ -6,7 +6,7 @@
 /*   By: jecolmou <jecolmou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:22:28 by jecolmou          #+#    #+#             */
-/*   Updated: 2022/08/06 15:50:32 by jecolmou         ###   ########.fr       */
+/*   Updated: 2022/08/06 19:28:55 by jecolmou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ int	ft_settle_variables(char **argv, t_data *data)
 		data->nb_meal = -1;
 	else
 		return (ft_putstr_fd("Error : wrong argument\n", 2), 0);
-	data->think = data->tdeath - (data->teat + data->tsleep);
+	data->time_start = ft_get_time();
+	printf("FT GET TIME INIIIIIIt ==== %ld\n", ft_get_time());
+
 	if (data->think < 0)
 		return (ft_putstr_fd("ca va mourir parce que t'as pas le tmps de manger et dormir\n", 1), 0);
 	return (1);
@@ -39,17 +41,35 @@ int	ft_init_philo(t_philo *philo, t_data *data)
 	i = data->num_philo;
 	while (--i >= 0)
 	{
-		philo[i].index = i;
+		philo[i].index = i + 1;
 		philo[i].left_chpstck = i;
 		philo[i].right_chpstck = (i + 1) % data->num_philo;
-		philo[i].last_meal = 0;
+		philo[i].last_meal = ft_get_time();
 		philo[i].meal_nb = 0;
 		philo[i].data = data;
 	}
 	return (EXIT_OK);
 }
 
+void	ft_init_thread(t_philo *philo)
+{
+	int	i;
 
+	i = 0;
+	while (i < philo->data->num_philo)
+	{
+		pthread_create(&philo[i].thread, NULL, ft_habit, &philo[i]);
+		if (!philo[i].thread)
+			ft_putstr_fd("Errorrr a pthread_create dans ft_routine\n", 2);
+		i++;
+	}
+	i = 0;
+	while (i < philo->data->num_philo)
+	{
+		pthread_join(philo[i].thread, NULL);
+		i++;
+	}
+}
 
 int	ft_init_mutex(t_data *data)
 {
@@ -72,8 +92,8 @@ int	ft_init_mutex(t_data *data)
 	pthread_mutex_init(&data->die_mutex, NULL);
 	if (pthread_mutex_init(&data->die_mutex, NULL) == -1)
 		return (free(data), 0);
-	pthread_mutex_init(&data->eat, NULL);
-	if (pthread_mutex_init(&data->eat, NULL) == -1)
+	pthread_mutex_init(&data->eat_mutex, NULL);
+	if (pthread_mutex_init(&data->eat_mutex, NULL) == -1)
 		return (free(data), 0);
 	return (1);
 }

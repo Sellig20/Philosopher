@@ -6,7 +6,7 @@
 /*   By: jecolmou <jecolmou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:00:27 by jecolmou          #+#    #+#             */
-/*   Updated: 2022/08/06 17:06:37 by jecolmou         ###   ########.fr       */
+/*   Updated: 2022/08/06 19:09:30 by jecolmou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,30 +25,9 @@ void	*ft_habit(void *socrate)
 		usleep(15 * 1000); //usleep est en nanosecnode donc * 1000 pour convertir en milili
 	while (1)
 	{
-		if (ft_take_chopsticks(kant) || ft_eat(kant) /*|| ft_chopstick_back(kant)*/)
-		{
-			break;
-		}
+		ft_is_eating(kant);
+		ft_is_sleeping(kant);
+		ft_is_thinking(kant);
 	}
 	return (NULL);
-}
-
-void	ft_routine(t_philo *philo)
-{
-	int	i;
-
-	i = 0;
-	while (i < philo->data->num_philo)
-	{
-		pthread_create(&philo[i].thread, NULL, ft_habit, &philo[i]);
-		if (!philo[i].thread)
-			ft_putstr_fd("Errorrr a pthread_create dans ft_routine\n", 2);
-		i++;
-	}
-	i = 0;
-	while (i < philo->data->num_philo)
-	{
-		pthread_join(philo[i].thread, NULL);
-		i++;
-	}
 }
