@@ -6,7 +6,7 @@
 /*   By: jecolmou <jecolmou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 16:22:11 by jecolmou          #+#    #+#             */
-/*   Updated: 2022/08/05 18:37:44 by jecolmou         ###   ########.fr       */
+/*   Updated: 2022/08/06 15:23:14 by jecolmou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ int	ft_check_args(int argc, char **argv)
 	int	i;
 
 	i = 0;
-	if (argc != 6)
-		return (ft_putstr_fd("Error : number of argument\n", 2), 0);
+	(void)argc;
+	// if (argc != 6)
+	// 	return (ft_putstr_fd("Error : number of argument\n", 2), 0);
 	if (ft_strlen(argv[i]) == 0)
 		return (ft_putstr_fd("Error : empty argument\n", 2), 0);
 	if (argv[i] == NULL)
@@ -46,6 +47,14 @@ int	ft_check_digit(char	**argv)
 	return (1);
 }
 
+int	ft_one_philo(t_data *data)
+{
+	(void)data;
+	printf("has taken a fork\n");
+	printf("is dead\n");
+	return (0);
+}
+
 int	ft_get_num_philo(char **argv, t_data *data)
 {
 	int	i;
@@ -54,7 +63,7 @@ int	ft_get_num_philo(char **argv, t_data *data)
 	while (argv[i])
 	{
 		if (ft_atoi(argv[1]) == 1)
-			return (ft_putstr_fd("Error : only one philosopher\n", 2), 0);
+			ft_one_philo(data);
 		if (ft_atoi(argv[1]) == 0)
 			return (ft_putstr_fd("Error : no philosophers\n", 2), 0);
 		else if (ft_strlen(argv[i]) == 0)

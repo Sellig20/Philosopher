@@ -6,7 +6,7 @@
 /*   By: jecolmou <jecolmou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:00:27 by jecolmou          #+#    #+#             */
-/*   Updated: 2022/08/05 17:20:42 by jecolmou         ###   ########.fr       */
+/*   Updated: 2022/08/06 17:06:37 by jecolmou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,11 @@ tu lockes la variable dead quand elle se remplit dun mort pour pas quils la cras
 void	*ft_habit(void *socrate)
 {
 	t_philo *kant;
-	// kant = (t_philo *)socrate;
-	// kant->last_meal = ft_get_time();
 	kant = (t_philo *)socrate;
+	if (kant->index % 2)
+		usleep(15 * 1000); //usleep est en nanosecnode donc * 1000 pour convertir en milili
 	while (1)
 	{
-		//faut manger prendre les fouchettes et dormir ici ?
-		// if (ft_eat(kant))
-		// 	break;
 		if (ft_take_chopsticks(kant) || ft_eat(kant) /*|| ft_chopstick_back(kant)*/)
 		{
 			break;
@@ -36,18 +33,22 @@ void	*ft_habit(void *socrate)
 	return (NULL);
 }
 
-int	ft_routine(t_data *data)
+void	ft_routine(t_philo *philo)
 {
 	int	i;
-	pthread_t	thread;
+
 	i = 0;
-	while (i < data->num_philo)
+	while (i < philo->data->num_philo)
 	{
-		pthread_create(&thread, NULL, ft_habit, &data->rousseau[i]);
-		if (!thread)
+		pthread_create(&philo[i].thread, NULL, ft_habit, &philo[i]);
+		if (!philo[i].thread)
 			ft_putstr_fd("Errorrr a pthread_create dans ft_routine\n", 2);
-		pthread_detach(thread);
 		i++;
 	}
-	return (EXIT_OK);
+	i = 0;
+	while (i < philo->data->num_philo)
+	{
+		pthread_join(philo[i].thread, NULL);
+		i++;
+	}
 }

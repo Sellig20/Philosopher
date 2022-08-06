@@ -6,7 +6,7 @@
 /*   By: jecolmou <jecolmou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:22:28 by jecolmou          #+#    #+#             */
-/*   Updated: 2022/08/05 16:23:38 by jecolmou         ###   ########.fr       */
+/*   Updated: 2022/08/06 15:50:32 by jecolmou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	ft_settle_variables(char **argv, t_data *data)
 		data->tsleep = ft_atoi(argv[4]);
 	if (argv[5])
 		data->nb_meal = ft_atoi(argv[5]);
+	else if (argv[5] == NULL)
+		data->nb_meal = -1;
 	else
 		return (ft_putstr_fd("Error : wrong argument\n", 2), 0);
 	data->think = data->tdeath - (data->teat + data->tsleep);
@@ -30,35 +32,31 @@ int	ft_settle_variables(char **argv, t_data *data)
 	return (1);
 }
 
-int	ft_init_philo(t_data *data)
+int	ft_init_philo(t_philo *philo, t_data *data)
 {
 	int	i;
 
-	i = 1;
-	data->rousseau = malloc(sizeof(t_philo) * (data->num_philo));
-	if (!data->rousseau)
-		return (0);
-	// data->chopsticks = malloc(sizeof(t_philo) * (data->num_chopstick));
-	// if (!data->chopsticks)
-	// 	return (0);
-	while (i <= data->num_philo)
+	i = data->num_philo;
+	while (--i >= 0)
 	{
-		data->rousseau->index = i;
-		data->rousseau->left_chpstck = i;
-		data->rousseau->right_chpstck = (i + 1) % data->num_philo;
-		data->rousseau->last_meal = 0;
-		data->rousseau->meal_nb = 0;
-		i++;
+		philo[i].index = i;
+		philo[i].left_chpstck = i;
+		philo[i].right_chpstck = (i + 1) % data->num_philo;
+		philo[i].last_meal = 0;
+		philo[i].meal_nb = 0;
+		philo[i].data = data;
 	}
 	return (EXIT_OK);
 }
+
+
 
 int	ft_init_mutex(t_data *data)
 {
 	int	i;
 
 	i = 0;
-	data->chop_mutex = malloc(sizeof(pthread_mutex_t) * data->num_chopstick);
+	data->chop_mutex = malloc(sizeof(pthread_mutex_t) * data->num_philo);
 	if (!data->chop_mutex)
 		return (0);
 	while (i < data->num_philo)
@@ -66,7 +64,16 @@ int	ft_init_mutex(t_data *data)
 		pthread_mutex_init(&data->chop_mutex[i], NULL);
 		i++;
 	}
+	if (pthread_mutex_init(data->chop_mutex, NULL) == -1)
+		return (free(data), 0);
 	pthread_mutex_init(&data->message, NULL);
+	if (pthread_mutex_init(&data->message, NULL) == -1)
+		return (free(data), 0);
 	pthread_mutex_init(&data->die_mutex, NULL);
+	if (pthread_mutex_init(&data->die_mutex, NULL) == -1)
+		return (free(data), 0);
+	pthread_mutex_init(&data->eat, NULL);
+	if (pthread_mutex_init(&data->eat, NULL) == -1)
+		return (free(data), 0);
 	return (1);
 }

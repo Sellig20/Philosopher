@@ -6,7 +6,7 @@
 /*   By: jecolmou <jecolmou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 16:39:51 by jecolmou          #+#    #+#             */
-/*   Updated: 2022/08/05 16:19:30 by jecolmou         ###   ########.fr       */
+/*   Updated: 2022/08/06 17:06:01 by jecolmou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ struct s_philo
 	int last_meal;
 	int	meal_nb;
 	int	eat;
-	int	what;
+	pthread_t	thread;
 	t_data	*data;
 };
 
@@ -51,7 +51,6 @@ struct s_data
 	int num_philo;
 	int num_chopstick;
 
-	t_philo *rousseau;
 	int	chopsticks;
 
 	int	phil;
@@ -64,6 +63,7 @@ struct s_data
 	pthread_mutex_t message;
 	pthread_mutex_t *chop_mutex;
 	pthread_mutex_t die_mutex;
+	pthread_mutex_t	eat;
 };
 
 //////////PARSING//////////
@@ -73,9 +73,9 @@ int	ft_parse(int argc, char **argv, int i, t_data *data);
 
 //////////SRCS//////////
 int	ft_init_mutex(t_data *data);
-int	ft_init_philo(t_data *data);
+int	ft_init_philo(t_philo *philo, t_data *data);
 int	ft_settle_variables(char **argv, t_data *data);
-int	ft_routine(t_data *data);
+void	ft_routine(t_philo *philo);
 void	*ft_habit(void *socrate);
 int	ft_take_chopsticks(t_philo *arendt);
 int ft_chopstick_back(t_philo *nietzsche);
