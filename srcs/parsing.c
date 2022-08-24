@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jecolmou <jecolmou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jeannecolmou <jeannecolmou@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 16:22:11 by jecolmou          #+#    #+#             */
-/*   Updated: 2022/07/26 16:10:04 by jecolmou         ###   ########.fr       */
+/*   Updated: 2022/08/24 19:34:43 by jeannecolmo      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ int	ft_check_args(int argc, char **argv)
 	int	i;
 
 	i = 0;
-	if (argc != 6)
-		return (ft_putstr_fd("Error : number of argument\n", 2), 0);
+	(void)argc;
 	if (ft_strlen(argv[i]) == 0)
 		return (ft_putstr_fd("Error : empty argument\n", 2), 0);
 	if (argv[i] == NULL)
@@ -46,6 +45,13 @@ int	ft_check_digit(char	**argv)
 	return (1);
 }
 
+int	ft_one_philo(t_data *data)
+{
+	printf("%ld %d has taken a fork\n", (data->tdeath), 1);
+	printf("%ld %d is dead\n", (data->tdeath + 1), 1);
+	return (0);
+}
+
 int	ft_get_num_philo(char **argv, t_data *data)
 {
 	int	i;
@@ -54,9 +60,11 @@ int	ft_get_num_philo(char **argv, t_data *data)
 	while (argv[i])
 	{
 		if (ft_atoi(argv[1]) == 1)
-			return (ft_putstr_fd("Error : only one philosopher\n", 2), 0);
-		if (ft_atoi(argv[1]) == 0)
+			return (ft_one_philo(data), 0);
+		if (ft_atoi(argv[1]) <= 0)
 			return (ft_putstr_fd("Error : no philosophers\n", 2), 0);
+		else if (ft_atoi(argv[1]) > 200)
+			return (ft_putstr_fd("Error : too many philosophers\n", 2), 0);
 		else if (ft_strlen(argv[i]) == 0)
 			return (ft_putstr_fd("Error : empty args\n", 2), 0);
 		else if (ft_atol(argv[i]) > INT_MAX)
