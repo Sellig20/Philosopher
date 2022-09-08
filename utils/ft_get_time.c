@@ -6,13 +6,13 @@
 /*   By: jecolmou <jecolmou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:28:57 by jecolmou          #+#    #+#             */
-/*   Updated: 2022/08/06 18:43:11 by jecolmou         ###   ########.fr       */
+/*   Updated: 2022/09/08 10:01:22 by jecolmou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosopher.h"
 
-long ft_get_time(void)
+long	ft_get_time(void)
 {
 	long int		time;
 	struct timeval	current_time;

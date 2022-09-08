@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeannecolmou <jeannecolmou@student.42.f    +#+  +:+       +#+        */
+/*   By: jecolmou <jecolmou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 18:09:15 by jecolmou          #+#    #+#             */
-/*   Updated: 2022/08/24 19:34:40 by jeannecolmo      ###   ########.fr       */
+/*   Updated: 2022/09/08 09:54:34 by jecolmou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_data	*data;
-	t_philo *philo;
-	int	i;
+	t_philo	*philo;
+	int		i;
 
 	i = 0;
 	data = malloc(sizeof(t_data));

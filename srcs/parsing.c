@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeannecolmou <jeannecolmou@student.42.f    +#+  +:+       +#+        */
+/*   By: jecolmou <jecolmou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 16:22:11 by jecolmou          #+#    #+#             */
-/*   Updated: 2022/08/24 19:34:43 by jeannecolmo      ###   ########.fr       */
+/*   Updated: 2022/09/08 10:01:08 by jecolmou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,19 @@ int	ft_check_args(int argc, char **argv)
 
 int	ft_check_digit(char	**argv)
 {
-	int j;
+	int	j;
+	int	k;
+
 	j = 1;
+	k = 0;
 	while (argv[j])
 	{
-		int k = 0;
 		while (argv[j][k])
 		{
 			if (argv[j][0] == '-')
 				return (ft_putstr_fd("Error : negative number\n", 2), 0);
 			if (!(argv[j][k] >= '0' && argv[j][k] <= '9'))
-				return (ft_putstr_fd("Error : not only numbers in the arguments \n", 2), 0);
+				return (ft_putstr_fd("Error : not only num in args \n", 2), 0);
 			k++;
 		}
 		j++;
