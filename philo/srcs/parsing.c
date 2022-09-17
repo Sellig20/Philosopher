@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jecolmou <jecolmou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jeannecolmou <jeannecolmou@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 16:22:11 by jecolmou          #+#    #+#             */
-/*   Updated: 2022/09/12 15:02:37 by jecolmou         ###   ########.fr       */
+/*   Updated: 2022/09/17 17:15:20 by jeannecolmo      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,18 @@ int	ft_check_digit(char	**argv)
 	return (1);
 }
 
-int	ft_one_philo(t_data *data)
+// int	ft_one_philo(t_data *data)
+// {
+// 	printf("%ld %d has taken a fork\n", (ft_get_time() - data->time_start), 1);
+// 	printf("%ld %d is dead\n", (data->tdeath + 1), 1);
+// 	return (0);
+// }
+
+int	ft_one_philo(char **argv)
 {
-	printf("%ld %d has taken a fork\n", (data->tdeath), 1);
-	printf("%ld %d is dead\n", (data->tdeath + 1), 1);
+	printf("%d %d has taken a fork\n", 0, 1);
+	usleep(ft_atoi(argv[2]) * 1000);
+	printf("%d %d is dead\n", (ft_atoi(argv[2]) + 1), 1);
 	return (0);
 }
 
@@ -66,7 +74,7 @@ int	ft_get_num_philo(char **argv, t_data *data)
 	while (argv[i])
 	{
 		if (ft_atoi(argv[1]) == 1)
-			return (ft_one_philo(data), 0);
+			return (ft_one_philo(argv), 0);
 		if (ft_atoi(argv[1]) <= 0)
 			return (ft_putstr_fd("Error : no philosophers\n", 2), 0);
 		else if (ft_atoi(argv[1]) > 200)
