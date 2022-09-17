@@ -6,7 +6,7 @@
 /*   By: jeannecolmou <jeannecolmou@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 16:22:11 by jecolmou          #+#    #+#             */
-/*   Updated: 2022/09/17 17:15:20 by jeannecolmo      ###   ########.fr       */
+/*   Updated: 2022/09/17 17:29:39 by jeannecolmo      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,6 @@ int	ft_check_digit(char	**argv)
 	}
 	return (1);
 }
-
-// int	ft_one_philo(t_data *data)
-// {
-// 	printf("%ld %d has taken a fork\n", (ft_get_time() - data->time_start), 1);
-// 	printf("%ld %d is dead\n", (data->tdeath + 1), 1);
-// 	return (0);
-// }
 
 int	ft_one_philo(char **argv)
 {
