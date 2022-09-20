@@ -6,11 +6,18 @@
 /*   By: jecolmou <jecolmou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:00:27 by jecolmou          #+#    #+#             */
-/*   Updated: 2022/09/08 10:00:43 by jecolmou         ###   ########.fr       */
+/*   Updated: 2022/09/21 00:29:42 by jecolmou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosopher.h"
+
+int	ft_unlock(t_philo *philo)
+{
+	pthread_mutex_unlock(&philo->data->chop_mutex[philo->right_chpstck]);
+	pthread_mutex_unlock(&philo->data->chop_mutex[philo->left_chpstck]);
+	return (0);
+}
 
 int	ft_check_status(t_philo *philo)
 {
@@ -18,20 +25,25 @@ int	ft_check_status(t_philo *philo)
 	if (philo->data->status == 1)
 	{
 		pthread_mutex_unlock(&philo->data->die_mutex);
-		return (-1);
+		return (1);
 	}
 	if ((ft_get_time() - philo->last_meal) > philo->data->tdeath)
-	{
-		printf("%ld %d has died", (ft_get_time()
-				- philo->data->time_start), philo->index);
-		philo->data->status = 1;
-		pthread_mutex_unlock(&philo->data->die_mutex);
-		return (-1);
-	}
+		philo->data->status = 2;
 	if (philo->data->status == 0)
 	{
 		pthread_mutex_unlock(&philo->data->die_mutex);
 		return (0);
+	}
+	else if (philo->data->status == 2)
+	{
+		pthread_mutex_lock(&philo->data->message);
+		printf("%ld %d died\n", (ft_get_time()
+				- philo->data->time_start), philo->index);
+		pthread_mutex_unlock(&philo->data->message);
+		philo->data->go_death = 1;
+		philo->data->status = 1;
+		pthread_mutex_unlock(&philo->data->die_mutex);
+		return (1);
 	}
 	return (0);
 }

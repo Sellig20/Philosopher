@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeannecolmou <jeannecolmou@student.42.f    +#+  +:+       +#+        */
+/*   By: jecolmou <jecolmou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 16:22:11 by jecolmou          #+#    #+#             */
-/*   Updated: 2022/09/17 17:29:39 by jeannecolmo      ###   ########.fr       */
+/*   Updated: 2022/09/20 17:10:37 by jecolmou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	ft_get_num_philo(char **argv, t_data *data)
 			return (ft_putstr_fd("Error : too many philosophers\n", 2), 0);
 		else if (ft_strlen(argv[i]) == 0)
 			return (ft_putstr_fd("Error : empty args\n", 2), 0);
-		else if (ft_atol(argv[i]) > INT_MAX)
+		else if (ft_atoi(argv[i]) >= INT_MAX)
 			return (ft_putstr_fd("Error : limit int reached\n", 2), 0);
 		i++;
 	}
@@ -86,6 +86,8 @@ int	ft_get_num_philo(char **argv, t_data *data)
 int	ft_parse(int argc, char **argv, int i, t_data *data)
 {
 	i = 1;
+	if (argc < 5)
+		return (ft_putstr_fd("Error : missing arguments", 2), 0);
 	while (i < argc)
 	{
 		if (ft_check_digit(argv) == 0)

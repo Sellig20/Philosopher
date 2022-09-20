@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialisation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeannecolmou <jeannecolmou@student.42.f    +#+  +:+       +#+        */
+/*   By: jecolmou <jecolmou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:22:28 by jecolmou          #+#    #+#             */
-/*   Updated: 2022/08/24 14:36:05 by jeannecolmo      ###   ########.fr       */
+/*   Updated: 2022/09/20 13:49:03 by jecolmou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 int	ft_settle_variables(char **argv, t_data *data)
 {
+	int	i;
+
+	i = -1;
 	if (argv[2])
 		data->tdeath = ft_atoi(argv[2]);
 	if (argv[3])
@@ -32,6 +35,8 @@ int	ft_settle_variables(char **argv, t_data *data)
 	data->tab_meal = malloc(sizeof(int) * data->num_philo);
 	if (!data->tab_meal)
 		return (0);
+	while (++i < data->num_philo)
+		data->tab_meal[i] = 0;
 	return (1);
 }
 
@@ -39,15 +44,16 @@ int	ft_init_philo(t_philo *philo, t_data *data)
 {
 	int	i;
 
-	i = data->num_philo;
-	while (--i >= 0)
+	i = 0;
+	while (i < data->num_philo)
 	{
 		philo[i].index = i + 1;
-		philo[i].left_chpstck = i;
-		philo[i].right_chpstck = (i + 1) % data->num_philo;
+		philo[i].left_chpstck = (i + i % 2) % data->num_philo;
+		philo[i].right_chpstck = (i + 1 - i % 2) % data->num_philo;
 		philo[i].last_meal = ft_get_time();
 		philo[i].meal_nb = 0;
 		philo[i].data = data;
+		i++;
 	}
 	return (EXIT_OK);
 }
@@ -61,15 +67,10 @@ void	ft_init_thread(t_philo *philo)
 	{
 		pthread_create(&philo[i].thread, NULL, ft_habit, &philo[i]);
 		if (!philo[i].thread)
-			ft_putstr_fd("Errorrr a pthread_create dans ft_routine\n", 2);
+			ft_putstr_fd("Error : pthread_create\n", 2);
 		i++;
 	}
 	i = 0;
-	while (i < philo->data->num_philo)
-	{
-		pthread_join(philo[i].thread, NULL);
-		i++;
-	}
 }
 
 int	ft_init_mutex(t_data *data)
@@ -85,15 +86,10 @@ int	ft_init_mutex(t_data *data)
 		pthread_mutex_init(&data->chop_mutex[i], NULL);
 		i++;
 	}
-	if (pthread_mutex_init(data->chop_mutex, NULL) == -1)
-		return (free(data), 0);
-	pthread_mutex_init(&data->message, NULL);
 	if (pthread_mutex_init(&data->message, NULL) == -1)
 		return (free(data), 0);
-	pthread_mutex_init(&data->die_mutex, NULL);
 	if (pthread_mutex_init(&data->die_mutex, NULL) == -1)
 		return (free(data), 0);
-	pthread_mutex_init(&data->eat_mutex, NULL);
 	if (pthread_mutex_init(&data->eat_mutex, NULL) == -1)
 		return (free(data), 0);
 	return (1);

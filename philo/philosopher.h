@@ -6,7 +6,7 @@
 /*   By: jecolmou <jecolmou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 16:39:51 by jecolmou          #+#    #+#             */
-/*   Updated: 2022/09/12 13:53:56 by jecolmou         ###   ########.fr       */
+/*   Updated: 2022/09/21 00:29:59 by jecolmou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ struct s_data
 	int				status;
 	int				*tab_meal;
 	long int		time_start;
+	int				go_death;
 	pthread_mutex_t	message;
 	pthread_mutex_t	*chop_mutex;
 	pthread_mutex_t	die_mutex;
@@ -81,7 +82,7 @@ void		ft_init_thread(t_philo *philo);
 void		*ft_habit(void *socrate);
 int			ft_take_chopsticks(t_philo *philo);
 void		ft_chopstick_back(t_philo *philo);
-void		ft_is_eating(t_philo *philo);
+int			ft_is_eating(t_philo *philo);
 void		ft_tab_meal(t_philo *philo);
 void		ft_is_sleeping(t_philo *philo);
 void		ft_is_thinking(t_philo *philo);
@@ -94,5 +95,6 @@ void		ft_putstr_fd(char *s, int fd);
 int			ft_atoi(const char *str);
 long long	ft_atol(char *str);
 long		ft_get_time(void);
+int			ft_unlock(t_philo *philo);
 
 #endif
