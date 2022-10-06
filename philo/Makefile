@@ -6,7 +6,7 @@
 #    By: jecolmou <jecolmou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/13 15:59:19 by jecolmou          #+#    #+#              #
-#    Updated: 2022/09/20 16:03:46 by jecolmou         ###   ########.fr        #
+#    Updated: 2022/10/04 19:03:31 by jecolmou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,15 +23,16 @@ SRC					=	philosopher.c \
 						utils/ft_atoi.c \
 						utils/ft_isnum.c \
 						utils/ft_get_time.c \
+						utils/utils.c \
 
 NAME = philo
 
 
-CC = clang
+CC = cc
 
 LINK = clang -pthread
 
-CFLAGS = -Wall -Wextra -Werror -I. -c
+CFLAGS = -I. -g3 -c -Wall -Wextra -Werror
 
 OBJ = $(SRC:.c=.o)
 

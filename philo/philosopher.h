@@ -6,7 +6,7 @@
 /*   By: jecolmou <jecolmou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 16:39:51 by jecolmou          #+#    #+#             */
-/*   Updated: 2022/09/21 00:29:59 by jecolmou         ###   ########.fr       */
+/*   Updated: 2022/10/01 21:07:14 by jecolmou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,62 +30,70 @@
 
 //////////STRUCTURE/////////
 
-typedef struct s_philo		t_philo;
+typedef struct s_monito		t_monito;
 
-typedef struct s_data		t_data;
-
-struct s_philo
+struct	s_monito
 {
-	int			index;
-	int			left_chpstck;
-	int			right_chpstck;
-	long int	last_meal;
-	int			meal_nb;
-	int			eat;
-	pthread_t	thread;
-	t_data		*data;
+	long long int	old_eating_time;
+	long long int	tmp;
+	int				i;
+	int				index;
 };
 
-struct s_data
+typedef struct s_data
 {
-	int				num_philo;
-	int				num_chopstick;
-	int				chopsticks;
-	int				phil;
-	long int		tdeath;
-	int				teat;
-	int				tsleep;
-	int				nb_meal;
-	int				think;
 	int				status;
-	int				*tab_meal;
-	long int		time_start;
-	int				go_death;
+	int				full;
+	long long int	*tab_monito;
+	pthread_mutex_t	*momutex;
 	pthread_mutex_t	message;
 	pthread_mutex_t	*chop_mutex;
 	pthread_mutex_t	die_mutex;
-	pthread_mutex_t	eat_mutex;
-};
+	pthread_mutex_t	full_mutex;
+}					t_data;
+
+typedef struct s_philo
+{
+	int				index;
+	int				left_chpstck;
+	int				right_chpstck;
+	int				meal_nb;
+	int				eaten_meal_nb;
+	int				eat;
+	long long int	tdeath;
+	int				teat;
+	int				tsleep;
+	int				num_philo;
+	int				nb_meal;
+	long long int	tstart;
+	pthread_t		thread;
+	t_data			*data;
+}					t_philo;
 
 //////////PARSING//////////
 int			ft_check_args(int argc, char **argv);
 int			ft_check_digit(char	**argv);
-int			ft_parse(int argc, char **argv, int i, t_data *data);
+int			ft_parse(int argc, char **argv, t_data *data);
 int			ft_isdigit(int c);
 int			ft_isnum(char *num);
+int			ft_get_num_philo(char **argv, t_data *data);
 
 //////////SRCS//////////
-int			ft_init_mutex(t_data *data);
-int			ft_init_philo(t_philo *philo, t_data *data);
+
 int			ft_settle_variables(char **argv, t_data *data);
-void		ft_init_thread(t_philo *philo);
+int			ft_take_chopsticks(t_philo *arendt);
+int			ft_is_eating(t_philo *philo);
+int			ft_is_sleeping(t_philo *philo);
+int			ft_is_thinking(t_philo *philo);
+int			ft_tab_meal(t_philo *philo);
+int			ft_monitoring(t_philo *philo);
+int			ft_init_mutex(t_data *data, t_philo *philo);
+int			ft_init_philo(t_philo *philo, t_data *data, int i, char **argv);
+void		ft_init_thread(t_philo *philo, t_data *data);
 void		*ft_habit(void *socrate);
 int			ft_take_chopsticks(t_philo *philo);
 void		ft_chopstick_back(t_philo *philo);
 int			ft_is_eating(t_philo *philo);
-void		ft_tab_meal(t_philo *philo);
-void		ft_is_sleeping(t_philo *philo);
-void		ft_is_thinking(t_philo *philo);
 int			ft_check_status(t_philo *philo);
 
 //////////UTILS//////////
@@ -94,7 +102,10 @@ void		ft_bzero(void *s, size_t n);
 void		ft_putstr_fd(char *s, int fd);
 int			ft_atoi(const char *str);
 long long	ft_atol(char *str);
-long		ft_get_time(void);
+long long	ft_get_time(void);
 int			ft_unlock(t_philo *philo);
-
+void		ft_has_died(t_philo *philo, int index);
+void		ft_return_tmp(t_philo *philo, int tmp, int i);
+void		ft_init_int(int index, int tmp, int old_eating_time);
+void		ft_monitoring_annex(t_philo *philo);
 #endif

@@ -6,125 +6,133 @@
 /*   By: jecolmou <jecolmou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:24:20 by jecolmou          #+#    #+#             */
-/*   Updated: 2022/09/21 00:46:08 by jecolmou         ###   ########.fr       */
+/*   Updated: 2022/10/03 14:14:05 by jecolmou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosopher.h"
 
-int	ft_take_chopsticks(t_philo *arendt)
+int	ft_take_chopsticks(t_philo *philo)
 {
-	pthread_mutex_lock(&arendt->data->chop_mutex[arendt->left_chpstck]);
-	if (ft_check_status(arendt) != 0)
+	pthread_mutex_lock(&((philo->data->chop_mutex)[philo->left_chpstck]));
+	pthread_mutex_lock(&(philo->data->message));
+	if (!ft_check_status(philo))
 	{
-		pthread_mutex_unlock(&arendt->data->chop_mutex[arendt->left_chpstck]);
+		pthread_mutex_unlock(&(philo->data->chop_mutex[philo->left_chpstck]));
+		pthread_mutex_unlock(&(philo->data->message));
 		return (0);
 	}
-	pthread_mutex_lock(&arendt->data->message);
-	printf("%ld %d has taken a fork\n", (ft_get_time()
-			- arendt->data->time_start), arendt->index);
-	pthread_mutex_unlock(&arendt->data->message);
-	pthread_mutex_lock(&arendt->data->chop_mutex[arendt->right_chpstck]);
-	if (ft_check_status(arendt) != 0)
+	printf("%lld %d has taken a fork\n", (ft_get_time()
+			- philo->tstart), philo->index + 1);
+	pthread_mutex_unlock(&(philo->data->message));
+	pthread_mutex_lock(&(philo->data->chop_mutex[philo->right_chpstck]));
+	pthread_mutex_lock(&(philo->data->message));
+	if (!ft_check_status(philo))
 	{
-		pthread_mutex_unlock(&arendt->data->chop_mutex[arendt->right_chpstck]);
-		pthread_mutex_unlock(&arendt->data->chop_mutex[arendt->left_chpstck]);
+		ft_unlock(philo);
+		pthread_mutex_unlock(&(philo->data->message));
 		return (0);
 	}
-	pthread_mutex_lock(&arendt->data->message);
-	printf("%ld %d has taken a fork\n", (ft_get_time()
-			- arendt->data->time_start), arendt->index);
-	pthread_mutex_unlock(&arendt->data->message);
+	printf("%lld %d has taken a fork\n", (ft_get_time()
+			- philo->tstart), philo->index + 1);
+	pthread_mutex_unlock(&(philo->data->message));
 	return (1);
 }
 
-int	ft_is_eating(t_philo *philo)
+int	ft_is_eating(t_philo *phi)
 {
-	pthread_mutex_lock(&philo->data->eat_mutex);
-	ft_take_chopsticks(philo);
-	philo->last_meal = ft_get_time();
-	if (ft_check_status(philo) != 0)
-		return (pthread_mutex_unlock(&philo->data->eat_mutex), 0);
-	pthread_mutex_lock(&philo->data->message);
-	printf("%ld %d is eating\n", (ft_get_time()
-			- philo->data->time_start), philo->index);
-	pthread_mutex_unlock(&philo->data->message);
-	philo->data->tab_meal[philo->index -1]++;
-	pthread_mutex_lock(&philo->data->die_mutex);
-	ft_tab_meal(philo);
-	pthread_mutex_unlock(&philo->data->die_mutex);
-	pthread_mutex_unlock(&philo->data->eat_mutex);
-	while (ft_get_time() < philo->last_meal + philo->data->teat)
+	long long int	st_etime;
+
+	st_etime = ft_get_time();
+	pthread_mutex_lock(&((phi->data->momutex)[phi->index]));
+	(phi->data->tab_monito)[phi->index] = st_etime;
+	pthread_mutex_unlock(&((phi->data->momutex)[phi->index]));
+	pthread_mutex_lock(&(phi->data->message));
+	if (!ft_check_status(phi))
 	{
-		if (ft_check_status(philo) != 0)
-			return (ft_unlock(philo));
-		usleep(500);
+		ft_unlock(phi);
+		return (pthread_mutex_unlock(&(phi->data->message)), 0);
 	}
-	ft_unlock(philo);
-	return (1);
-}
-
-void	ft_is_sleeping(t_philo *philo)
-{
-	long long int	sleep_time;
-
-	if (ft_check_status(philo) != 0)
+	printf("%lld %d is eating\n", (st_etime - phi->tstart), phi->index + 1);
+	pthread_mutex_unlock(&(phi->data->message));
+	while (ft_get_time() < st_etime + phi->teat)
 	{
-		return ;
-	}
-	sleep_time = ft_get_time();
-	pthread_mutex_lock(&philo->data->message);
-	printf("%ld %d is sleeping\n", (ft_get_time()
-			- philo->data->time_start), philo->index);
-	pthread_mutex_unlock(&philo->data->message);
-	while (ft_get_time() < sleep_time + philo->data->tsleep)
-	{
-		if (ft_check_status(philo) != 0)
-			return ;
-		usleep(500);
-	}
-}
-
-void	ft_is_thinking(t_philo *philo)
-{
-	long long int	think_time;
-
-	think_time = ft_get_time();
-	if (ft_check_status(philo) != 0)
-	{
-		return ;
-	}
-	pthread_mutex_lock(&philo->data->message);
-	printf("%ld %d is thinking\n", (ft_get_time()
-			- philo->data->time_start), philo->index);
-	pthread_mutex_unlock(&philo->data->message);
-	while (ft_get_time() < think_time
-		+ (philo->data->tdeath - philo->data->teat - philo->data->tsleep) / 2)
-	{
-		if (ft_check_status(philo) != 0)
-			return ;
-		usleep(500);
-	}
-}
-
-void	ft_tab_meal(t_philo *philo)
-{
-	int	i;
-	int	index;
-
-	i = 0;
-	index = 0;
-	if (philo->data->nb_meal >= 0)
-	{
-		while (philo->data->tab_meal[index] >= philo->data->nb_meal)
+		if (!ft_check_status(phi))
 		{
-			if (i == philo->data->num_philo - 1)
-			{
-				philo->data->status = 1;
-				return ;
-			}
-			i++;
-			index++;
+			ft_unlock(phi);
+			return (0);
 		}
+		usleep(500);
 	}
+	ft_unlock(phi);
+	return (1);
+}
+
+int	ft_is_sleeping(t_philo *philo)
+{
+	long long int	start_sleeping_time;
+
+	start_sleeping_time = ft_get_time();
+	pthread_mutex_lock(&(philo->data->message));
+	if (!ft_check_status(philo))
+	{
+		pthread_mutex_unlock(&(philo->data->message));
+		return (0);
+	}
+	printf("%lld %d is sleeping\n", (start_sleeping_time
+			- philo->tstart), philo->index + 1);
+	pthread_mutex_unlock(&(philo->data->message));
+	while (ft_get_time() < start_sleeping_time + philo->tsleep)
+	{
+		if (!ft_check_status(philo))
+			return (0);
+		usleep(500);
+	}
+	return (1);
+}
+
+int	ft_is_thinking(t_philo *philo)
+{
+	long long int	start_thinking_time;
+
+	start_thinking_time = ft_get_time();
+	pthread_mutex_lock(&(philo->data->message));
+	if (!ft_check_status(philo))
+	{
+		pthread_mutex_unlock(&(philo->data->message));
+		return (0);
+	}
+	printf("%lld %d is thinking\n", (start_thinking_time
+			- philo->tstart), philo->index + 1);
+	pthread_mutex_unlock(&(philo->data->message));
+	while (ft_get_time() < start_thinking_time
+		+ (philo->tdeath - philo->teat - philo->tsleep) / 2)
+	{
+		if (!ft_check_status(philo))
+			return (0);
+		usleep(500);
+	}
+	return (1);
+}
+
+int	ft_tab_meal(t_philo *philo)
+{
+	if (philo->nb_meal == -1)
+		return (1);
+	philo->eaten_meal_nb++;
+	if (philo->eaten_meal_nb == philo->nb_meal)
+	{
+		pthread_mutex_lock(&(philo->data->full_mutex));
+		(philo->data->full)++;
+		if (philo->data->full == philo->num_philo)
+		{
+			pthread_mutex_lock(&(philo->data->die_mutex));
+			philo->data->status = 0;
+			pthread_mutex_unlock(&(philo->data->die_mutex));
+			pthread_mutex_unlock(&(philo->data->full_mutex));
+			return (0);
+		}
+		pthread_mutex_unlock(&(philo->data->full_mutex));
+	}
+	return (1);
 }

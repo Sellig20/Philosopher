@@ -6,11 +6,11 @@
 /*   By: jecolmou <jecolmou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:52:45 by jecolmou          #+#    #+#             */
-/*   Updated: 2022/09/12 13:53:29 by jecolmou         ###   ########.fr       */
+/*   Updated: 2022/10/03 14:42:23 by jecolmou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosopher.h"
+#include "../philosopher.h"
 
 int	ft_isdigit(int c)
 {
